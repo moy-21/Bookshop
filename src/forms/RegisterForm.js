@@ -101,6 +101,7 @@ export default function LoginForm({user}){
             <TextField
                 id="confirmPassword"
                 name="confirmPassword"
+                type
                 fullWidth
                 sx={{mb:2}}
                 label="Confirm Password"
