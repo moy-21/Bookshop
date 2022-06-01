@@ -9,6 +9,7 @@ import {getUser} from './api/apiBasicAuth';
 import { CancelToken } from 'apisauce';
 import apiUser from './api/apiUser';
 import apiBook from './api/apiBook';
+import BookBrowser from './components/BookBrowser'
 
 
 const my_token="HeazDJCgT7iHwy6va9Tg3ArcE_kQg8gb5dv1YJ5JeTg"
@@ -29,7 +30,7 @@ function App() {
   return (
     <NavBar>
         <Button color="primary" onClick={handleAPITest}>Button</Button>
-        <BookCard/>
+        <BookBrowser/>
 
         <LoginForm/>
     </NavBar>
