@@ -24,7 +24,7 @@ const initialValues={
 
 
 export default function LoginForm(){
-    const setUser = useContext(AppContext);
+    const {setUser} = useContext(AppContext);
     const [loginCreds, setLoginCreds] = useState({});
     const [error, setError] = useState('')
     

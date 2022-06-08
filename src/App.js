@@ -31,8 +31,8 @@ let registerInfo = {
 function App() {
   return (
     <NavBar>
-        {/* <SnackBar/> */}
-        {/* <LoginForm/> */}
+        <SnackBar/>
+        <LoginForm/>
         <RegisterForm/>
         
         <BookBrowser/>

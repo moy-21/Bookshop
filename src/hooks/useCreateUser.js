@@ -1,9 +1,12 @@
-import {useEffect} from 'react';
+import {useEffect, useContext} from 'react';
 import apiUser from '../api/apiUser';
 import { CancelToken } from 'apisauce';
+import { AppContext } from '../context/AppContext'
 
 
 export default function useCreateUser(newUser){
+
+    const setAlert = useContext(AppContext)
 
     useEffect(
         ()=>{ 
@@ -12,10 +15,10 @@ export default function useCreateUser(newUser){
             const createUser=async()=>{
                 response = await apiUser.post(newUser, source.token)
                 if (response){
-                    // setAlert({msg:`User: Deleted`,'cat':'success'})
+                    setAlert({msg:`User: Deleted`,'cat':'success'})
                     console.log("User Created")
                 }else{
-                    // setAlert({msg:`Please reauthorize you account`,'cat':'warning'})
+                    setAlert({msg:`Please reauthorize you account`,'cat':'warning'})
                     console.log("error")
                 }
             }
