@@ -10,6 +10,7 @@ import { CancelToken } from 'apisauce';
 import apiUser from './api/apiUser';
 import apiBook from './api/apiBook';
 import BookBrowser from './components/BookBrowser'
+import SnackBar from './components/SnackBar';
 
 
 const my_token="HeazDJCgT7iHwy6va9Tg3ArcE_kQg8gb5dv1YJ5JeTg"
@@ -20,19 +21,21 @@ let registerInfo = {
   "password":"123"
 }
 
-const handleAPITest= async ()=>{
-  const source = CancelToken.source();
-  const response_object= await apiUser.post(registerInfo,source.token);
-  console.log(response_object)
-}
+// const handleAPITest= async ()=>{
+//   const source = CancelToken.source();
+//   const response_object= await apiUser.post(registerInfo,source.token);
+//   console.log(response_object)
+// }
+        // <Button color="primary" onClick={handleAPITest}>Button</Button>
 
 function App() {
   return (
     <NavBar>
-        <Button color="primary" onClick={handleAPITest}>Button</Button>
+        {/* <SnackBar/> */}
+        {/* <LoginForm/> */}
+        <RegisterForm/>
+        
         <BookBrowser/>
-
-        <LoginForm/>
     </NavBar>
   );
 }

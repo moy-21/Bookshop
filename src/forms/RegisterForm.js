@@ -1,9 +1,13 @@
-import React from 'react';
+import {React, useContext, useState} from 'react';
 import * as Yup from "yup";
 import { useFormik } from 'formik';
 import Button from '../components/Button';
 import TextField from '@mui/material/TextField';
 import { FormControl, FormHelperText, InputLabel, Select, MenuItem } from '@mui/material';
+import { AppContext } from '../context/AppContext' 
+import useDeleteUser from '../hooks/useDeleteUser';
+import useEditUser from '../hooks/useEditUser';
+import useCreateUser from '../hooks/useCreateUser';
 
 //Defining our yup validation
 const FormSchema=Yup.object(
@@ -19,7 +23,18 @@ const FormSchema=Yup.object(
 
 
 
-export default function LoginForm({user}){
+export default function RegisterForm(){
+
+    const user = useContext(AppContext)
+
+    const [editUser, setEditUser]=useState({})
+    const [deleteUser, setDeleteUser]=useState({})
+    const [createUser, setCreateUser]=useState({})
+
+    useEditUser(editUser)
+    useDeleteUser(deleteUser)
+    useCreateUser(createUser)
+
     const initialValues={
         firstName:user?.firstName?? '',
         lastName:user?.lastName?? '',
@@ -30,13 +45,19 @@ export default function LoginForm({user}){
 
     const handleSubmit=(values, resetForm)=>{
         if (user){
-            console.log('Editing User')
+            setEditUser(values)
+            
         }else{
-            console.log('Registering')
+            setCreateUser(values)
         }
         console.log(values)
         resetForm(initialValues)
     }
+
+    const handleDelete=()=>{
+        setDeleteUser()
+    }
+
     const formik = useFormik({
         initialValues:initialValues,
         validationSchema:FormSchema,
@@ -113,6 +134,10 @@ export default function LoginForm({user}){
             />
 
             <Button type="submit" sx={{width:"100%"}}>{user?"Edit Profile":"Register"}</Button>
+
+            <Button onClick={()=>{handleDelete()}} sx={{width:"100%",my:1}}>Delete</Button>
+            
+             
         </form>
     )
 

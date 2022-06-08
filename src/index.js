@@ -9,12 +9,12 @@ import primaryTheme from './themes/primaryTheme';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <>
     <ThemeProvider theme={primaryTheme}>
       <CssBaseline/>
       <App />
     </ThemeProvider>
-  </React.StrictMode>
+  </>
 );
 
 // If you want to start measuring performance in your app, pass a function

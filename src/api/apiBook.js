@@ -5,16 +5,16 @@ const endpoint = '/book'
 
 const getBooks = async(cancelToken)=>{
     let error;
-    let books;
+    let bookss;
     const response = await apiClientNoAuth(cancelToken).get(endpoint);
     if(response.ok){
-        books=response.data.books
+        bookss=response.data.books
     }else{
         error = "An Unexpected Error has Occured. Please Try again Later."
     }
     return {
         error,
-        books
+        bookss
     }
 }
 
