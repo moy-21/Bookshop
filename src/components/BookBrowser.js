@@ -11,16 +11,16 @@ import Error  from './Error';
 
 export default function BookBrowser() {
     const bookss = useBooks()
-
     
    
-    // if (error){
-    //     return (
-    //       <Box sx={{display:"flex"}}>
-    //         <Error>{error}</Error>
-    //       </Box>
-    //     )
-    //   }
+    
+    if(!bookss){
+        return(
+            <Box sx={{display:"flex"}}>
+            <CircularProgress/>
+            </Box>
+        )
+      }
     
    
 

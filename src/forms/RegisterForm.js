@@ -28,8 +28,9 @@ export default function RegisterForm(){
     const user = useContext(AppContext)
 
     const [editUser, setEditUser]=useState({})
-    const [deleteUser, setDeleteUser]=useState({})
+    const [deleteUser, setDeleteUser]=useState()
     const [createUser, setCreateUser]=useState({})
+    
 
     useEditUser(editUser)
     useDeleteUser(deleteUser)
@@ -55,7 +56,9 @@ export default function RegisterForm(){
     }
 
     const handleDelete=()=>{
+        console.log("test")
         setDeleteUser()
+        
     }
 
     const formik = useFormik({

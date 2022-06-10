@@ -1,4 +1,5 @@
-import {createContext, useState} from "react";
+import {createContext, useState, useEffect, useReducer} from "react";
+import { bookReducer, readingListActions } from "../reducers/bookReducer"
 
 export const AppContext = createContext();
 
@@ -10,8 +11,26 @@ const AppContextProvider=({children})=> {
             return JSON.parse(user)
         }
     }
+
+    const getReadingListFromLS = ()=> {
+        let readingList = localStorage.getItem('readingList')
+        if (readingList) {
+            return JSON.parse(readingList)
+        }
+    }
+
     const [user, _setUser] = useState(getUserFromLS())
     const [alert,setAlert] =useState({})
+    const [readingList, dispatch] = useReducer(bookReducer, getReadingListFromLS()??[])
+
+    useEffect(
+        ()=>{
+   
+                localStorage.setItem('readingList', JSON.stringify(readingList))
+
+        },[readingList]
+    )
+
 
     const setUser = (user)=> {
         localStorage.setItem('user', JSON.stringify(user))
@@ -22,7 +41,22 @@ const AppContextProvider=({children})=> {
         alert,
         setAlert,
         user,
-        setUser
+        setUser,
+        readingList,
+        addFavorite:(book)=>{
+            dispatch({type: readingListActions.addFavorite, book})
+        },
+        addBulkToFavorite:(book)=>{
+            dispatch({type: readingListActions.addBulkToFavorite, book})
+        },
+        removeFavorite:(book)=>{
+            dispatch({type: readingListActions.removeFavorite, book})
+        },
+        removeAllFavorite:(book)=>{
+            dispatch({type:readingListActions.removeAllFavorite, book})
+        },
+        emptyFavorite:()=>{dispatch({type:readingListActions.emptyFavorite})}
+
     }
 
     return (
