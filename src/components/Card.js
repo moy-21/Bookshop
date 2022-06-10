@@ -55,11 +55,6 @@ export default function BookCard({book}) {
         image={book.img}
         alt={book.title}
       />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          Book Info
-        </Typography>
-      </CardContent>
       <CardActions disableSpacing>
         <FavoriteButton book = {book}/>
         <ExpandMore

@@ -1,40 +1,41 @@
-
 import './App.css';
-import Button from './components/Button';
 import NavBar from './components/NavBar';
-import BookCard from './components/Card';
-import RegisterForm from './forms/RegisterForm';
-import LoginForm from './forms/LoginForm';
-import {getUser} from './api/apiBasicAuth';
-import { CancelToken } from 'apisauce';
-import apiUser from './api/apiUser';
-import apiBook from './api/apiBook';
-import BookBrowser from './components/BookBrowser'
 import SnackBar from './components/SnackBar';
+import Box from '@mui/material/Box'
+import {Route, Routes} from 'react-router-dom'
+import Home from './views/Home'
+import Login from './views/Login'
+import Logout from './views/Logout'
+import ReadingList from './views/ReadingList'
+import BookShop from './views/BookShop'
 
 
-const my_token="HeazDJCgT7iHwy6va9Tg3ArcE_kQg8gb5dv1YJ5JeTg"
-let registerInfo = {
-  "email":"moi@email.com", 
-  "first_name":"Moises", 
-  "last_name":"Renteria",
-  "password":"123"
-}
 
-// const handleAPITest= async ()=>{
-//   const source = CancelToken.source();
-//   const response_object= await apiUser.post(registerInfo,source.token);
-//   console.log(response_object)
+// const my_token="HeazDJCgT7iHwy6va9Tg3ArcE_kQg8gb5dv1YJ5JeTg"
+// let registerInfo = {
+//   "email":"moi@email.com", 
+//   "first_name":"Moises", 
+//   "last_name":"Renteria",
+//   "password":"123"
 // }
-        // <Button color="primary" onClick={handleAPITest}>Button</Button>
+
 
 function App() {
   return (
-    <NavBar>
-        <SnackBar/>
-        <LoginForm/>
-        <BookBrowser/>
-    </NavBar>
+    <>
+      <SnackBar/>
+        <NavBar>
+          <Box sx={{minHeight:'90vh'}}>
+            <Routes>
+              <Route path="/" element={<Home/>}/>
+              <Route path="/readinglist" element={<ReadingList/>}/>
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/logout" element={<Logout/>}/>
+              <Route path="/books" element={<BookShop/>}/>
+            </Routes>
+          </Box>
+        </NavBar>
+    </>
   );
 }
 

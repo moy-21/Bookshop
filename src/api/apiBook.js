@@ -17,7 +17,24 @@ const getBooks = async(cancelToken)=>{
         bookss
     }
 }
+const getBook = async(id, cancelToken) => {
+    let error;
+    let singleBook;
+    const response = await apiClientNoAuth(cancelToken).get(endpoint + '/'+ id);
+    if(response.ok){
+        singleBook=response.data
+    }else{
+        error = "An Unexpected Error has Occured. Please Try again Later."
+    }
+    return {
+        error,
+        singleBook
+    }
+
+
+}
 
 export default {
-    getBooks
+    getBooks,
+    getBook
 }

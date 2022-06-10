@@ -1,35 +1,34 @@
-import React, {useEffect, useContext} from 'react'
+import React, {useEffect} from 'react'
 import {getUser} from '../api/apiBasicAuth';
 import { CancelToken } from 'apisauce';
-import { AppContext } from '../context/AppContext'
-
+import {useNavigate} from 'react-router-dom';
 
 export default function useLogin(loginCreds, setLoginCreds, setError, setUser) {
-    //get navigate
-        const {setAlert} = useContext(AppContext)
-        const login = async (cancelToken)=>{
-            const response = await getUser(loginCreds.email, loginCreds.password,cancelToken)
-            console.log(response)
-            if(response.user?.token){
-                console.log('logged in');
-                setAlert({msg:`Successfully Logged In`,'cat':'success'})
 
-                setUser(response.user);
-                setLoginCreds({})
-                // navigate to the home page
-            }
-            setError(response.error);
-        }
+    const navigate = useNavigate()
+    useEffect(
         
         
-        useEffect(
-            ()=>{
-                const source = CancelToken.source()
-                if (loginCreds.email && loginCreds.password)
+        
+        ()=>{
+            const source = CancelToken.source()
+            if (loginCreds.email && loginCreds.password){
+                const login = async (cancelToken)=>{
+                    const response = await getUser(loginCreds.email, loginCreds.password,cancelToken)
+                    console.log(response)
+                    if(response.user?.token){
+                        console.log('logged in');
+                        setUser(response.user);
+                        setLoginCreds({})
+                        navigate('/')
+                    }
+                    setError(response.error);
+                }
                 login(source.token)
-                return ()=>{source.cancel()}
-            },
-            [loginCreds,  setLoginCreds, setError, setUser]
-        )
-        
-    }
+            }
+            return ()=>{source.cancel()}
+        },
+        [loginCreds,  setLoginCreds, setError, setUser, navigate]
+    )
+    
+}

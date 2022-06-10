@@ -25,8 +25,9 @@ const AppContextProvider=({children})=> {
 
     useEffect(
         ()=>{
-   
+          
                 localStorage.setItem('readingList', JSON.stringify(readingList))
+            
 
         },[readingList]
     )

@@ -1,11 +1,11 @@
-import { React, useContext, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import * as Yup from "yup";
 import { useFormik } from 'formik';
 import Button from '../components/Button';
 import TextField from '@mui/material/TextField';
 import { AppContext } from '../context/AppContext';
+import Error from '../components/Error';
 import useLogin from '../hooks/useLogin';
-import Error from '../components/Error'
 
 //Defining our yup validation
 const FormSchema=Yup.object(
@@ -21,17 +21,21 @@ const initialValues={
 }
 
 
-
-
 export default function LoginForm(){
     const {setUser} = useContext(AppContext);
     const [loginCreds, setLoginCreds] = useState({});
     const [error, setError] = useState('')
     
+    
+    useLogin(loginCreds, setLoginCreds, setError, setUser)
+
     const handleSubmit=(values)=>{
+        console.log(values)
         setLoginCreds(values)
     }
-    useLogin(loginCreds, setLoginCreds, setError, setUser)
+
+
+
 
     const formik = useFormik({
         initialValues:initialValues,
@@ -46,7 +50,7 @@ export default function LoginForm(){
                 name="email"
                 fullWidth
                 sx={{mb:2, mt:2}}
-                label="Email"
+                label="email"
                 placeholder="email"
                 value={formik.values.email}
                 onChange={formik.handleChange}
@@ -57,9 +61,10 @@ export default function LoginForm(){
             <TextField
                 id="password"
                 name="password"
+                type="password"
                 fullWidth
                 sx={{mb:2}}
-                label="Password"
+                label="password"
                 placeholder="password"
                 value={formik.values.password}
                 onChange={formik.handleChange}
